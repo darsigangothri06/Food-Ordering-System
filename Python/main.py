@@ -107,11 +107,13 @@ def login_check(userid,password):
                     if p[3] == password:
                         print("Congrats {}, You have successfully logged into your account".format(p[0]))
                         Order()
+                        break
                     else:
                         print("Incorrect password, try again")
                         exit()
-            print("Emailid not found, please signup to continue")
-            exit()
+            else:
+                print("Emailid not found, please signup to continue")
+                Start()
     else:
         with open("user_data.txt","r") as f:
             for i in f.readlines():
@@ -159,10 +161,96 @@ def login():
     Exit(password)
     login_check(userid,password)
 
+cost = 0
+def Available(Items):
+    global cost
+    print("------Available Items are-----")
+    for i in Items:
+        print("{0:25} Rs. {1:-3}".format(i[0],i[1]))
+    print("Cart (Type Cart)")
+    print("Exit (Type Exit)")
+    ans = input("Enter: ")
+    if ans == "Exit" or ans == "exit":
+        exit()
+    if ans == "Cart" or ans == "cart":
+        print("------------Cart------------")
+        print("Your total amount is ", cost)
+        p = int(input("Do you want to order (y = 1/n = 0): "))
+        if p == 1:
+            print("Thankyou, Your order is on the way. Welcome Again")
+            exit()
+        else:
+            print("Your order is cancelled")
+            exit()
+    else:
+        x = int(input("Enter the count: "))
+        cost += Items[int(ans)-1][1]*x
+        Available(Items)
+
+def HMourya():
+    Food_Price = [['1. Parrota',15], ['2. Roti',25], ['3. Shangrilla',150], ['4. Biryani',40], ['5. Noodles',70]]
+    Available(Food_Price)
+def HAFC():
+    Food_Price = [['1. Roti',15], ['2. Manchuria',45], ['3. Noodles',150], ['4. Biryani',40], ['5. Fried Rice',70]]
+    Available(Food_Price)
+def HSM():
+    Food_Price = [['1. Roti',15], ['2. Manchuria',45], ['3. Noodles',150], ['4. Biryani',40], ['5. Fried Rice',70]]
+    Available(Food_Price)
+def HTSC():
+    Food_Price = [['1. Mushroom Shawarma',15], ['2. Manchurian Shawarma',45], ['3. Egg Shawarma',150], ['4. Chicken Shawarma',40], ['5. Baby Corn Shawarma',70]]
+    Available(Food_Price)
+def HVRP():
+    Food_Price = [['1. Roti',15], ['2. Manchuria',45], ['3. Noodles',150], ['4. Biryani',40], ['5. Fried Rice',70]]
+    Available(Food_Price)
+
+def OrderByFood():
+    print("---------Order By Food--------")
+    Food_Price = [['1. Roti',15], ['2. Manchuria',45], ['3. Noodles',150], ['4. Biryani',40], ['5. Fried Rice',70],['6. Chocolate Ice Cream',99],['7. Food1',110],['8. Food2',120],['9. Food3',100],['10. Food4',50]]
+    Available(Food_Price)
+    
+def OrderByHotel():
+    print("---------Order By Hotel-------")
+    ans = input("""Available Hotels are
+1. Mourya
+2. Amaravathi Food Court
+3. Sweet Magic
+4. The Shawarma Co.
+5. V Royal Park
+Enter your choice: """)
+    if ans == '1':
+        HMourya()
+    elif ans == '2':
+        HAFC()
+    elif ans == '3':
+        HSM()
+    elif ans == '4':
+        HTSC()
+    elif ans == '5':
+        HVRP()
+    else:
+        print("Enter valid input")
+        OrderByHotel()
+
+def Order():
+    ans = input("""Food Order System
+1. Order by hotel
+2. Order by Food
+3. Exit
+""")
+    Exit(ans)
+    if ans == '1':
+        OrderByHotel()
+    elif ans == '2':
+        OrderByFood()
+    elif ans == '3':
+        exit()
+    else:
+        print("Enter valid input")
+        Order()
+
 def Start():
     print("Food Ordering System!! If you want to exit at any time, please type exit")
-    ans = input("""
-1. Signup
+    ans = input("""1. Signup
 2. Login
 3. Exit
 """)
@@ -175,5 +263,5 @@ def Start():
         exit()
     else:
         print("Enter valid input")
-
+        Start()
 Start()
