@@ -31,13 +31,12 @@ def username_valid(s):
         if not i.isalpha():
             print("Username is invalid, Re-enter again")
             username_input()
-    for i in s:
-        with open("user_data.txt","r") as f:
-            for i in f.readlines():
-                p = i.split()
-                if len(p) == 5 and p[0] == s:
-                    print("Username is already taken, enter new username")
-                    username_input()
+    with open("user_data.txt","r") as f:
+        for i in f.readlines():
+            p = i.split()
+            if len(p) == 5 and p[0] == s:
+                print("Username is already taken, enter new username")
+                username_input()
     return True
 
 def emailid_valid(s):
@@ -132,7 +131,7 @@ def login_check(userid,password):
             exit()
 
 def signup():
-    print('-'*20 + "Welcome" + '-'*20)
+    print('-'*20 + "Signup" + '-'*20)
     username = username_input()
     age = age_input()
     emailid = email_input()
@@ -180,10 +179,10 @@ def Available(Items):
             print("Thankyou, Your order is on the way. Welcome Again")
             exit()
         else:
-            print("Your order is cancelled")
+            print("Your order is cancelled.")
             exit()
     else:
-        x = int(input("Enter the count: "))
+        x = int(input("Enter the count of your item: "))
         cost += Items[int(ans)-1][1]*x
         Available(Items)
 
@@ -249,7 +248,8 @@ def Order():
         Order()
 
 def Start():
-    print("Food Ordering System!! If you want to exit at any time, please type exit")
+    print("------------------FOOD ORDERING SYSTEM-----------------")
+    print("If you want to exit at any time, please type exit")
     ans = input("""1. Signup
 2. Login
 3. Exit
