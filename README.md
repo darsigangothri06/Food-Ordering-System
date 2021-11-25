@@ -6,8 +6,8 @@ A mini project to implement Food ordering with login, signup, search by food, se
 
 * Sign up
 * Login
-* Order_by_hotel
-* Order_by_food
+* Order by hotel
+* Order by food
 * Cart/Order Confirmation
 
 **Signup :**
@@ -24,14 +24,14 @@ A mini project to implement Food ordering with login, signup, search by food, se
 
  * Email and Password are checked.
 
- **Order_by_hotel :**
+ **Order by hotel :**
 
  * Select the hotel
    * Once the hotel is selected, it will displayed the list of available foods with their cost.
    * Select the food and enter the no of items to order.
  * Once you selected all the foods, Select Cart.
 
- **Order_by_Food :**
+ **Order by Food :**
 
  * Select the food and enter the no of items to order.
  * Once you selected all the foods, Select Cart.
@@ -40,6 +40,3 @@ A mini project to implement Food ordering with login, signup, search by food, se
 
  * Display the total cost of your orders.
  * Confirm your order and enjoy your food :hamburger:.
-
-
-
