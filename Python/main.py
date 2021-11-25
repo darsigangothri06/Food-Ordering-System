@@ -126,9 +126,8 @@ def login_check(userid,password):
                         password = input("Enter password: ")
                         Exit(password)
                         login_check(userid,password)
-            print("Username not found, please signup to continue")
-            print('-'*50)
-            exit()
+            print("Username not found, please Login/Signup to continue")
+            Start()
 
 def signup():
     print('-'*20 + "Signup" + '-'*20)
@@ -137,6 +136,7 @@ def signup():
     emailid = email_input()
     password = password_input()
     mobile_number = mobile_input()
+    print('Username entered into file ----------',username)
     with open("user_data.txt","a") as file:
         file.write(username + ' ' + str(age) + ' ' + emailid + ' ' + password + ' ' + mobile_number + '\n')
     print("Congratulations, you have successfully created your account..")
@@ -155,7 +155,7 @@ def login():
         Exit(ans)
     else:
         print("Enter valid input")
-        exit()
+        login()
     password = input("Enter password: ")
     Exit(password)
     login_check(userid,password)
@@ -165,7 +165,7 @@ def Available(Items):
     global cost
     print("------Available Items are-----")
     for i in Items:
-        print("{0:25} Rs. {1:-3}".format(i[0],i[1]))
+        print("{0:25} Rs. {1:<3}".format(i[0],i[1]))
     print("Cart (Type Cart)")
     print("Exit (Type Exit)")
     ans = input("Enter: ")
@@ -179,7 +179,7 @@ def Available(Items):
             print("Thankyou, Your order is on the way. Welcome Again")
             exit()
         else:
-            print("Your order is cancelled.")
+            print("Your order is cancelled. Thankyou!!")
             exit()
     else:
         x = int(input("Enter the count of your item: "))
@@ -209,7 +209,7 @@ def OrderByFood():
     
 def OrderByHotel():
     print("---------Order By Hotel-------")
-    ans = input("""Available Hotels are
+    ans = input("""---------Available Hotels are----------
 1. Mourya
 2. Amaravathi Food Court
 3. Sweet Magic
@@ -231,7 +231,7 @@ Enter your choice: """)
         OrderByHotel()
 
 def Order():
-    ans = input("""Food Order System
+    ans = input("""-------Welcome to your account-------
 1. Order by hotel
 2. Order by Food
 3. Exit
