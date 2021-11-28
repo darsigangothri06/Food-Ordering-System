@@ -1,4 +1,5 @@
 from sys import exit
+from prettytable import PrettyTable
 
 def Exit(s):
     if s == 'exit':
@@ -103,12 +104,13 @@ def login_check(userid,password):
         with open("user_data.txt","r") as f:
             for i in f.readlines():
                 p = i.split()
-                if p[2] == userid and p[3] == password:
-                    print("Congrats {}, You have successfully logged into your account".format(p[0]))
-                    return Order()
-                else:
-                    print("Incorrect password, try again")
-                    return login()
+                if p[2] == userid:
+                    if p[3] == password:
+                        print("Congrats {}, You have successfully logged into your account".format(p[0]))
+                        return Order()
+                    else:
+                        print("Incorrect password, try again")
+                        return login()
             else:
                 print("Emailid not found, please signup to continue")
                 return Start()
@@ -116,7 +118,7 @@ def login_check(userid,password):
         with open("user_data.txt","r") as f:
             for i in f.readlines():
                 p = i.split()
-                if len(p) == 5 and p[0] == userid:
+                if p[0] == userid:
                     if p[3] == password:
                         print("Congrats {}, You have successfully logged into your account".format(p[0]))
                         return Order()
@@ -160,17 +162,23 @@ def login():
 
 cost = 0
 def Available(Items):
+    Table = PrettyTable(['S. No','Item','Cost (Rs.)'])
     global cost
-    print("------Available Items are-----")
+    print("-----------------Available Items are-------------------\n")
+    c = 1
     for i in Items:
-        print("{0:25} Rs. {1:<3}".format(i[0],i[1]))
+        Table.add_row([str(c) + '.',i[0],i[1]])
+        c += 1
+    print(Table)
     print("Cart (Type Cart)")
     print("Exit (Type Exit)")
+    del Table
     ans = input("Enter: ")
     if ans == "Exit" or ans == "exit":
         exit()
     if ans == "Cart" or ans == "cart":
-        print("------------Cart------------")
+        print()
+        print("--------------------Cart-------------------")
         print("Your total amount is ", cost)
         p = int(input("Do you want to order (y = 1/n = 0): "))
         if p == 1:
@@ -185,35 +193,37 @@ def Available(Items):
         Available(Items)
 
 def HMourya():
-    Food_Price = [['1. Parrota',15], ['2. Roti',25], ['3. Shangrilla',150], ['4. Biryani',40], ['5. Noodles',70]]
+    Food_Price = [['Parrota',15], ['Roti',25], ['Shangrilla',150], ['Biryani',40], ['Noodles',70]]
     Available(Food_Price)
 def HAFC():
-    Food_Price = [['1. Roti',15], ['2. Manchuria',45], ['3. Noodles',150], ['4. Biryani',40], ['5. Fried Rice',70]]
+    Food_Price = [['Roti',15], ['Manchuria',45], ['Noodles',150], ['Biryani',40], ['Fried Rice',70]]
     Available(Food_Price)
 def HSM():
-    Food_Price = [['1. Roti',15], ['2. Manchuria',45], ['3. Noodles',150], ['4. Biryani',40], ['5. Fried Rice',70]]
+    Food_Price = [['Roti',15], ['Manchuria',45], ['Noodles',150], ['Biryani',40], ['Fried Rice',70]]
     Available(Food_Price)
 def HTSC():
-    Food_Price = [['1. Mushroom Shawarma',15], ['2. Manchurian Shawarma',45], ['3. Egg Shawarma',150], ['4. Chicken Shawarma',40], ['5. Baby Corn Shawarma',70]]
+    Food_Price = [['Mushroom Shawarma',15], ['Manchurian Shawarma',45], ['Egg Shawarma',150], ['Chicken Shawarma',40], ['Baby Corn Shawarma',70]]
     Available(Food_Price)
 def HVRP():
-    Food_Price = [['1. Roti',15], ['2. Manchuria',45], ['3. Noodles',150], ['4. Biryani',40], ['5. Fried Rice',70]]
+    Food_Price = [['Roti',15], ['Manchuria',45], ['Noodles',150], ['Biryani',40], ['Fried Rice',70]]
     Available(Food_Price)
 
 def OrderByFood():
-    print("---------Order By Food--------")
-    Food_Price = [['1. Roti',15], ['2. Manchuria',45], ['3. Noodles',150], ['4. Biryani',40], ['5. Fried Rice',70],['6. Chocolate Ice Cream',99],['7. Food1',110],['8. Food2',120],['9. Food3',100],['10. Food4',50]]
+    print("----------------Order By Food--------------\n")
+    Food_Price = [['Roti',15], ['Manchuria',45], ['Noodles',150], ['Biryani',40], ['Fried Rice',70],['Chocolate Ice Cream',99],['Food1',110],['Food2',120],['Food3',100],['Food4',50]]
     Available(Food_Price)
     
 def OrderByHotel():
-    print("---------Order By Hotel-------")
-    ans = input("""---------Available Hotels are----------
-1. Mourya
-2. Amaravathi Food Court
-3. Sweet Magic
-4. The Shawarma Co.
-5. V Royal Park
-Enter your choice: """)
+    print("-------------------Order By Hotel---------------\n")
+    print("""----------------Available Hotels are--------------\n""")
+    NewTable = PrettyTable(['S. No', 'Hotel'])
+    NewTable.add_row(['1. ', 'Mourya'])
+    NewTable.add_row(['2. ', 'Amaravathi Food Court'])
+    NewTable.add_row(['3. ', 'Sweet Magic'])
+    NewTable.add_row(['4. ', 'The Shawarma Co.'])
+    NewTable.add_row(['5. ', 'V Royal Park'])
+    print(NewTable)
+    ans = input("Enter your choice (1-5): ")
     if ans == '1':
         HMourya()
     elif ans == '2':
