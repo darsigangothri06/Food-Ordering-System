@@ -2,12 +2,12 @@ from sys import exit
 
 def Exit(s):
     if s == 'exit':
-        print('ThankYou')
+        print('---------------ThankYou---------------')
         exit()
 def password_valid(s):
     if len(s) not in range(8,13):
-        print("Minimum length of password is 8 and maximum length is 12, Re-enter your password")
-        password_input()
+        print("Minimum length of password is 8 and maximum length is 12")
+        return False
     Upper = 0
     Digit = 0
     Lower = 0
@@ -23,56 +23,53 @@ def password_valid(s):
             Special = 1
     if Upper and Lower and Digit and Special:
         return True
-    print("Password is invalid, Re-enter again")
-    password_input()
+    return False
     
 def username_valid(s):
     for i in s:
         if not i.isalpha():
-            print("Username is invalid, Re-enter again")
-            username_input()
+            return False
     with open("user_data.txt","r") as f:
         for i in f.readlines():
             p = i.split()
             if len(p) == 5 and p[0] == s:
-                print("Username is already taken, enter new username")
-                username_input()
-    return True
+                return False
+        return True
 
 def emailid_valid(s):
-    for i in s:
-        with open("user_data.txt","r") as f:
-            for i in f.readlines():
-                p = i.split()
-                if len(p) == 5 and p[2] == s:
-                    print("Eamilid is already taken, Re-enter new emailid")
-                    email_input()
+    with open("user_data.txt","r") as f:
+        for i in f.readlines():
+            p = i.split()
+            if len(p) == 5 and p[2] == s:
+                return False
     if '@' in s:
         return True
-    print("Emailid is invalid, Re-enter again")
-    email_input()
+    return False
 
 def username_input():
     username = input("Enter valid username: ")
     Exit(username)
     if username_valid(username):
         return username
-    print("Invalid username")
-    exit()
+    else:
+        print("Invalid username, enter again")
+        return username_input()       
 
 def age_input():
     age = int(input("Enter your age: "))
     if age > 0:
         return age
-    print("Invalid age")
-    exit()
+    print("Invalid age, Enter again")
+    return age_input()
 
 def email_input():
     emailid = input("Enter your email id: ")
     Exit(emailid)
     if emailid_valid(emailid):
         return emailid
-    return False
+    else:
+        print("Emailid is taken/invalid, Enter again")
+        return email_input()
 
 def password_input():
     password = input("Enter your password: ")
@@ -82,19 +79,23 @@ def password_input():
     if password == password_retype:
         if password_valid(password):
             return password
-    print("Password is invalid, Signup again")
-    password_input()
+        else:
+            print("Invalid password, enter again")
+            return password_input()
+    else:
+        print("Password is invalid, Signup again")
+        return password_input()
 
 def mobile_input():
     number = input("Enter your mobile number: ")
     Exit(number)
     if len(number) != 10:
         print("Please enter valid mobile number")
-        mobile_input()
+        return mobile_input()
     for i in number:
         if not i.isdigit():
             print("Please enter valid mobile number")
-            mobile_input()
+            return mobile_input()
     return number
 
 def login_check(userid,password):
@@ -102,17 +103,15 @@ def login_check(userid,password):
         with open("user_data.txt","r") as f:
             for i in f.readlines():
                 p = i.split()
-                if len(p) == 5 and p[2] == userid:
-                    if p[3] == password:
-                        print("Congrats {}, You have successfully logged into your account".format(p[0]))
-                        Order()
-                        break
-                    else:
-                        print("Incorrect password, try again")
-                        exit()
+                if p[2] == userid and p[3] == password:
+                    print("Congrats {}, You have successfully logged into your account".format(p[0]))
+                    return Order()
+                else:
+                    print("Incorrect password, try again")
+                    return login()
             else:
                 print("Emailid not found, please signup to continue")
-                Start()
+                return Start()
     else:
         with open("user_data.txt","r") as f:
             for i in f.readlines():
@@ -120,29 +119,28 @@ def login_check(userid,password):
                 if len(p) == 5 and p[0] == userid:
                     if p[3] == password:
                         print("Congrats {}, You have successfully logged into your account".format(p[0]))
-                        Order()
+                        return Order()
                     else:
                         print("Incorrect password")
                         password = input("Enter password: ")
                         Exit(password)
-                        login_check(userid,password)
+                        return login_check(userid,password)
             print("Username not found, please Login/Signup to continue")
-            Start()
+            return Start()
 
 def signup():
     print('-'*20 + "Signup" + '-'*20)
-    username = username_input()
+    user_name = username_input()
     age = age_input()
     emailid = email_input()
     password = password_input()
     mobile_number = mobile_input()
-    print('Username entered into file ----------',username)
     with open("user_data.txt","a") as file:
-        file.write(username + ' ' + str(age) + ' ' + emailid + ' ' + password + ' ' + mobile_number + '\n')
+        file.write('\n' + user_name + ' ' + str(age) + ' ' + emailid + ' ' + password + ' ' + mobile_number)
     print("Congratulations, you have successfully created your account..")
     print("You can now login to your account")
     print()
-    Start()
+    return Start()
 
 def login():
     ans = input("Do you want to enter username or email (1 or 2): ")
@@ -155,7 +153,7 @@ def login():
         Exit(ans)
     else:
         print("Enter valid input")
-        login()
+        return login()
     password = input("Enter password: ")
     Exit(password)
     login_check(userid,password)
