@@ -160,7 +160,26 @@ def login():
     Exit(password)
     login_check(userid,password)
 
+def Cart(Cart_Items):
+    Cart_Table = PrettyTable(['S. no', 'Item','Item Cost', 'Count', 'Amount'])
+    cost = 0
+    c = 1
+    for i in Cart_Items:
+        Cart_Table.add_row([str(c) + '.', str(i[0]), str(i[1]), str(i[2]), str(i[1]  * i[2])])
+        cost += i[1] * i[2]
+        c += 1
+    print(Cart_Table)
+    print("\n Total Amount is: ", cost, '\n')
+    p = int(input("Do you want to order (y = 1/n = 0): "))
+    if p == 1:
+        print("\nThankyou, Your order is on the way. Welcome Again")
+        exit()
+    else:
+        print("Your order is cancelled. Thankyou!!")
+        exit()
+
 cost = 0
+Cart_items = []
 def Available(Items):
     Table = PrettyTable(['S. No','Item','Cost (Rs.)'])
     global cost
@@ -177,19 +196,11 @@ def Available(Items):
     if ans == "Exit" or ans == "exit":
         exit()
     if ans == "Cart" or ans == "cart":
-        print()
-        print("--------------------Cart-------------------")
-        print("Your total amount is ", cost)
-        p = int(input("Do you want to order (y = 1/n = 0): "))
-        if p == 1:
-            print("Thankyou, Your order is on the way. Welcome Again")
-            exit()
-        else:
-            print("Your order is cancelled. Thankyou!!")
-            exit()
+        Cart(Cart_items)
     else:
         x = int(input("Enter the count of your item: "))
         cost += Items[int(ans)-1][1]*x
+        Cart_items.append([Items[int(ans) - 1][0], Items[int(ans) - 1][1], x])
         Available(Items)
 
 def HMourya():
@@ -243,7 +254,8 @@ def Order():
 1. Order by hotel
 2. Order by Food
 3. Exit
-""")
+
+Enter here: """)
     Exit(ans)
     if ans == '1':
         OrderByHotel()
@@ -261,7 +273,8 @@ def Start():
     ans = input("""1. Signup
 2. Login
 3. Exit
-""")
+
+Enter here: """)
     Exit(ans)
     if ans == '1':
         signup()
