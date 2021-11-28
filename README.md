@@ -38,5 +38,5 @@ A mini project in Python to implement Food ordering with login, signup, search b
 
  **Cart :**
 
- * Display the total cost of your orders.
+ * Display the items, count and total cost of your orders.
  * Confirm your order and enjoy your food :hamburger:.
