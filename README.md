@@ -16,7 +16,7 @@ A mini project in Python to implement Food ordering with login, signup, search b
 * Validate the inputs
   * Username must be alphabets.
   * Age must be greater than and not equal to 0.
-  * Email must contains @.
+  * Email must contain @.
   * Password must contains length between 8 to 12 with atleast of one uppercase, lowercase, number and special character.
   * Mobile number should contains numbers and exactly 10 digits.
 
