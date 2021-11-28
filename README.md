@@ -1,6 +1,6 @@
-# Food Ordering System
+# *Food Ordering System*
 
-A mini project to implement Food ordering with login, signup, search by food, search by hotels, payment functionalities.
+A mini project in Python to implement Food ordering with login, signup, search by food, search by hotel, payment functionalities.
 
 ## Functions :
 
@@ -15,8 +15,8 @@ A mini project to implement Food ordering with login, signup, search by food, se
 * Get the username, age, email, password, confirm password and mobile number
 * Validate the inputs
   * Username must be alphabets.
-  * Age must be greater than and npt equal to 0.
-  * Email must contains @, and length should be greater than 5.
+  * Age must be greater than and not equal to 0.
+  * Email must contains @.
   * Password must contains length between 8 to 12 with atleast of one uppercase, lowercase, number and special character.
   * Mobile number should contains numbers and exactly 10 digits.
 
@@ -27,7 +27,7 @@ A mini project to implement Food ordering with login, signup, search by food, se
  **Order by hotel :**
 
  * Select the hotel
-   * Once the hotel is selected, it will displayed the list of available foods with their cost.
+   * Once the hotel is selected, it will display the list of available foods with their cost.
    * Select the food and enter the no of items to order.
  * Once you selected all the foods, Select Cart.
 
